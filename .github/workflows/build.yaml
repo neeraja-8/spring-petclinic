@@ -22,6 +22,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
             java-version: '17'
+            distribution: 'temurin'
             cache: maven
       - name: build maven package
         run: mvn clean package
