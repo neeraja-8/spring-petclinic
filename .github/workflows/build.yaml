@@ -13,7 +13,16 @@ jobs:
       - name: checkout repo branches
         uses: actions/checkout@v7
 
-      - name: java install
-        run: |
-          sudo apt-get install openjdk-17-jdk -y
-          sudo apt install maven -y
+#     - name: java install
+#      run: |
+#       sudo apt-get install openjdk-17-jdk -y
+#      sudo apt install maven -y
+
+      - name:
+        uses: actions/setup-java@v5
+        with:
+            java-version: '17'
+            cache: maven
+      - name: build maven package
+        run: mvn clean package
+            
