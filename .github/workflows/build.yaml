@@ -1,0 +1,19 @@
+name: maven build workflow
+
+on:
+  workflow_dispatch:
+  push:
+    branches: '*'
+
+jobs:
+  maven_build:
+    runs-on: ubuntu-latest
+    if: ${{ github.ref_name == 'main' }}
+    steps:
+      - name: checkout repo branches
+        uses: actions/checkout@v7
+
+      - name: java install
+        run:
+          sudo apt-get install openjdk-17-jdk -y
+          sudo apt install maven -y
