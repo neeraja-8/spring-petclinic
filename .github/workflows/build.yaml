@@ -33,3 +33,20 @@ jobs:
           name: spring-jar
           path: target/*.jar
           retention-days: 1
+
+    build_image:
+      needs: maven_build
+      runs-on: ubuntu-latest
+      steps:
+        - name: checkout repo branches
+          uses: actions/checkout@v7
+
+        - name: download artifacts
+          uses: actions/download-artifact@v7
+          with:
+            name: spring-jar
+            path: .
+
+        - name: list files
+          run:
+            ls -lrt
