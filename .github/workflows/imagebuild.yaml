@@ -23,4 +23,13 @@ jobs:
         with:
           username: neeraja21
           password: ${{ secrets.DOCKER_PAT }}
-    
+      # - name: build spring applications
+      #   run:
+      #     docker image build -t neeraja21/spring-boot:1.0.0 .
+      #     docker push neeraja21/spring-boot:1.0.0 .
+
+      - name: Build and push
+        uses: docker/build-push-action@v7
+        with:
+          push: true
+          tags: neeraja21/spring-boot:1.0.0
