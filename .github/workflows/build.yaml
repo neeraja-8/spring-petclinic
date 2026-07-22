@@ -3,7 +3,8 @@ name: maven build workflow
 on:
   workflow_dispatch:
   push:
-    branches: '*'
+    branches:
+      - main
 
 jobs:
   maven_build:
@@ -18,8 +19,8 @@ jobs:
 #       sudo apt-get install openjdk-17-jdk -y
 #      sudo apt install maven -y
 
-      - name:
-        uses: actions/setup-java@v5
+      - name: setup java 17
+        uses: actions/setup-java@v4
         with:
             java-version: '17'
             distribution: 'temurin'
@@ -28,25 +29,25 @@ jobs:
         run: mvn clean package
             
       - name: upload artifacts
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: spring-jar
           path: target/*.jar
           retention-days: 1
 
-    build_image:
-      needs: maven_build
-      runs-on: ubuntu-latest
-      steps:
-        - name: checkout repo branches
-          uses: actions/checkout@v7
+  build_image:
+    needs: maven_build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo branches
+        uses: actions/checkout@v4
 
-        - name: download artifacts
-          uses: actions/download-artifact@v7
-          with:
-            name: spring-jar
-            path: .
+      - name: download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: spring-jar
+          path: .
 
-        - name: list files
-          run:
-            ls -lrt
+      - name: List files
+        run:
+          ls -lrt
